@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18",
+          "react-dom": "https://esm.sh/react-dom@18",
+          "babel": "https://esm.sh/@babel/standalone",
+          "lucide-react": "https://esm.sh/lucide-react",
+          "@/components/ui/accordion": "https://esm.sh/shadcdn",
+          "@/components/ui/alert": "https://esm.sh/shadcdn",
+          "@/components/ui/alert-dialog": "https://esm.sh/shadcdn",
+          "@/components/ui/aspect-ratio": "https://esm.sh/shadcdn",
+          "@/components/ui/avatar": "https://esm.sh/shadcdn",
+          "@/components/ui/badge": "https://esm.sh/shadcdn",
+          "@/components/ui/breadcrumb": "https://esm.sh/shadcdn",
+          "@/components/ui/button": "https://esm.sh/shadcdn",
+          "@/components/ui/calendar": "https://esm.sh/shadcdn",
+          "@/components/ui/card": "https://esm.sh/shadcdn",
+          "@/components/ui/carousel": "https://esm.sh/shadcdn",
+          "@/components/ui/checkbox": "https://esm.sh/shadcdn",
+          "@/components/ui/collapsible": "https://esm.sh/shadcdn",
+          "@/components/ui/command": "https://esm.sh/shadcdn",
+          "@/components/ui/context-menu": "https://esm.sh/shadcdn",
+          "@/components/ui/dialog": "https://esm.sh/shadcdn",
+          "@/components/ui/drawer": "https://esm.sh/shadcdn",
+          "@/components/ui/dropdown-menu": "https://esm.sh/shadcdn",
+          "@/components/ui/form": "https://esm.sh/shadcdn",
+          "@/components/ui/hover-card": "https://esm.sh/shadcdn",
+          "@/components/ui/input": "https://esm.sh/shadcdn",
+          "@/components/ui/input-otp": "https://esm.sh/shadcdn",
+          "@/components/ui/label": "https://esm.sh/shadcdn",
+          "@/components/ui/menubar": "https://esm.sh/shadcdn",
+          "@/components/ui/navigation-menu": "https://esm.sh/shadcdn",
+          "@/components/ui/pagination": "https://esm.sh/shadcdn",
+          "@/components/ui/popover": "https://esm.sh/shadcdn",
+          "@/components/ui/progress": "https://esm.sh/shadcdn",
+          "@/components/ui/radio-group": "https://esm.sh/shadcdn",
+          "@/components/ui/resizable": "https://esm.sh/shadcdn",
+          "@/components/ui/scroll-area": "https://esm.sh/shadcdn",
+          "@/components/ui/select": "https://esm.sh/shadcdn",
+          "@/components/ui/separator": "https://esm.sh/shadcdn",
+          "@/components/ui/sheet": "https://esm.sh/shadcdn",
+          "@/components/ui/skeleton": "https://esm.sh/shadcdn",
+          "@/components/ui/slider": "https://esm.sh/shadcdn",
+          "@/components/ui/sonner": "https://esm.sh/shadcdn",
+          "@/components/ui/switch": "https://esm.sh/shadcdn",
+          "@/components/ui/table": "https://esm.sh/shadcdn",
+          "@/components/ui/tabs": "https://esm.sh/shadcdn",
+          "@/components/ui/textarea": "https://esm.sh/shadcdn",
+          "@/components/ui/toast": "https://esm.sh/shadcdn",
+          "@/components/ui/toggle": "https://esm.sh/shadcdn",
+          "@/components/ui/toggle-group": "https://esm.sh/shadcdn",
+          "@/components/ui/tooltip": "https://esm.sh/shadcdn"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import { transform } from 'babel'
+      import { createElement } from 'react'
+      import { createRoot } from 'react-dom'
+
+      const code = new URLSearchParams(location.search).get('code')
+
+      if (code) {
+        const transpiled = transform(code, { presets: ['react'] }).code
+        const uri = URL.createObjectURL(
+          new Blob([transpiled], { type: 'text/javascript' }),
+        )
+        const { default: App } = await import(uri)
+
+        createRoot(document.body).render(createElement(App))
+      }
+    </script>
+  </body>
+</html>
