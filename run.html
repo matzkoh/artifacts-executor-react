@@ -97,7 +97,6 @@
         "imports": {
           "react": "https://esm.sh/react@18",
           "react-dom": "https://esm.sh/react-dom@18",
-          "babel": "https://esm.sh/@babel/standalone",
           "lucide-react": "https://esm.sh/lucide-react",
           "@/components/ui/accordion": "https://esm.sh/shadcdn",
           "@/components/ui/alert": "https://esm.sh/shadcdn",
@@ -150,9 +149,13 @@
   </head>
   <body>
     <script type="module">
-      import { transform } from 'babel'
-      import { createElement } from 'react'
+      import { transform } from 'https://esm.sh/@babel/standalone'
+
+      import { Clipboard, Code } from 'lucide-react'
+      import { createElement as h, Fragment } from 'react'
       import { createRoot } from 'react-dom'
+
+      import { Button } from '@/components/ui/button'
 
       const code = new URLSearchParams(location.search).get('code')
 
@@ -163,7 +166,41 @@
         )
         const { default: App } = await import(uri)
 
-        createRoot(document.body).render(createElement(App))
+        createRoot(document.body).render(
+          h(
+            Fragment,
+            undefined,
+            h(App),
+            h(
+              'div',
+              {
+                className: 'fixed right-0 top-0 flex flex-col gap-2 p-2',
+              },
+              h(
+                Button,
+                {
+                  className: 'gap-2',
+                  onClick: () => navigator.clipboard.writeText(code),
+                },
+                h(Clipboard),
+                'Copy contents',
+              ),
+              h(
+                Button,
+                {
+                  className: 'gap-2',
+                  onClick: () => {
+                    const url = new URL('/', location)
+                    url.searchParams.set('code', code)
+                    location.href = url.href
+                  },
+                },
+                h(Code),
+                'Edit contents',
+              ),
+            ),
+          ),
+        )
       }
     </script>
   </body>
