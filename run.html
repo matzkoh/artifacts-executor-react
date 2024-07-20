@@ -190,7 +190,7 @@
                 {
                   className: 'gap-2',
                   onClick: () => {
-                    const url = new URL('/', location)
+                    const url = new URL('.', location.href)
                     url.searchParams.set('code', code)
                     location.href = url.href
                   },
